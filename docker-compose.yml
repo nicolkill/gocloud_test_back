@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    image: nicolkill/gocloud_test_back:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    networks:
+      - default
+      - proxy
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+
+      AWS_ACCESS_KEY_ID: example
+      AWS_SECRET_ACCESS_KEY: example
+
+      DYNAMODB_URL: dynamodb:8000
+
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - 8000:8000
+
+networks:
+  proxy:
+    external: true
