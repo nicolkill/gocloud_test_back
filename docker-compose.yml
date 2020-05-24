@@ -17,7 +17,7 @@ services:
       AWS_ACCESS_KEY_ID: dasd
       AWS_SECRET_ACCESS_KEY: dsasad
 
-      DYNAMODB_URL: http://dynamodb:8000
+#      DYNAMODB_URL: http://dynamodb:8000
 
   dynamodb:
     image: amazon/dynamodb-local:latest

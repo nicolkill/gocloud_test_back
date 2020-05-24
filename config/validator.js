@@ -41,20 +41,19 @@ const validate = (params, options) => {
 
   Object.keys(options).forEach(field => {
     const reportedErrors = options[field].map(validateName => {
-      let fn;
+      let validateFn;
 
-      if (typeof validateName === 'function') {
-        fn = validateName;
+      if (typeof validateName === 'object') {
+        validateFn = validateName;
       } else {
-        const validateFn = validationFunctions[validateName];
+        validateFn = validationFunctions[validateName];
 
         if (!validateFn) {
           throw new Error(`Validation ${validateName} is not found`);
         }
-        fn = validateFn.fn;
       }
 
-      const isValid = fn(params[field]);
+      const isValid = validateFn.fn(params[field]);
 
       return (isValid ? null : validateFn.message);
     }).filter(error => !!error);

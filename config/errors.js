@@ -15,7 +15,6 @@ class Base extends Error {
   toJSON() {
     return {
       code: this.code,
-      statusCode: this.statusCode,
     };
   }
 }
@@ -42,7 +41,6 @@ class UnprocessableEntity extends Base {
     return {
       code: this.code,
       errors: this.errors,
-      statusCode: this.statusCode,
     };
   }
 }

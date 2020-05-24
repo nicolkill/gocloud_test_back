@@ -1,12 +1,14 @@
 const AWS = require("aws-sdk");
 const util = require('util');
 
-const endpoint = process.env.DYNAMODB_URL || 'http://localhost:8000';
+const awsOptions = {
+  region: process.env.AWS_REGION || "us-east-1",
+};
+if (!!process.env.DYNAMODB_URL) {
+  awsOptions.endpoint = process.env.DYNAMODB_URL;
+}
 
-AWS.config.update({
-  region: "us-west-2",
-  endpoint: endpoint,
-});
+AWS.config.update(awsOptions);
 
 const dynamodb = new AWS.DynamoDB();
 const createTable = util.promisify(dynamodb.createTable.bind(dynamodb));
@@ -30,7 +32,7 @@ const SUBSCRIPTIONS_PARAMS = {
 const createTables = async () => {
   console.log('Creating tables');
   try {
-    const data = await Promise.all([
+    await Promise.all([
       createTable(SUBSCRIPTIONS_PARAMS),
     ]);
     console.log('created');
