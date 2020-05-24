@@ -1,7 +1,11 @@
-const controller = require('./subscriptions.controller');
+const {
+  getAllSubscriptions,
+  postSubscriptions
+} = require('./subscriptions.controller');
 
-const route = (app) => {
-  app.post('/landing/subscriptions', controller.postSubscriptions);
+const route = (router) => {
+  router.get('/landing/subscriptions', getAllSubscriptions);
+  router.post('/landing/subscriptions', postSubscriptions);
 };
 
 module.exports = {
