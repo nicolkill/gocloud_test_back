@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { app } = require('./config/express');
 const { createTables } = require('./config/dynamo_database');
 
